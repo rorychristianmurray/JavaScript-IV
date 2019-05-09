@@ -141,42 +141,33 @@ class Hero extends Humanoid {
         this.formalTitle = formalTitle;
         this.place = place;
     }
+
+    kneel() {
+        return `I am ${this.formalTitle} ${this.name} of ${this.place} and you shall kneel before me!`;
+    };
+
+    rainOfGod() {
+        this.healthPoints = this.healthPoints + 2;
+        return `You have been blessed by the Rain of God! Your health is now ${this.healthPoints}! May the winds of Sha-mah-lan carry you forward!`;
+    };
+
+    fireStorm() {
+        this.healthPoints = this.healthPoints - 5;
+        if(this.healthPoints <= 0) {
+          return this.destroy();
+        } else {
+          return `You have been burned by the fires of Hell! Your health is now ${this.healthPoints}! If you fall further you may be banished from this kingdom!`;
+        }
+
+    }
 }
 
-
-
-
-    // Make Hero inherit Humanoid prototype methods
-  
-    Hero.prototype = Object.create(Humanoid.prototype);
-  
-    // Give hero a prototype method telling other players to kneel before them.
-  
-    Hero.prototype.kneel = function() {
-      return `I am ${this.formalTitle} ${this.name} of ${this.place} and you shall kneel before me!`;
+class Villain extends Hero {
+    constructor({createdAt, name, dimensions, healthPoints, team, weapons, language, formalTitle, place}){
+        super({createdAt, name, dimensions, healthPoints, team, weapons, language, formalTitle, place});
     }
-  
-    Hero.prototype.rainOfGod = function() {
-      this.healthPoints = this.healthPoints + 2;
-      return `You have been blessed by the Rain of God! Your health is now ${this.healthPoints}! May the winds of Sha-mah-lan carry you forward!`;
-    }
-  
-    Hero.prototype.fireStorm = function() {
-      this.healthPoints = this.healthPoints - 5;
-      if(this.healthPoints <= 0) {
-        return this.destroy();
-      } else {
-        return `You have been burned by the fires of Hell! Your health is now ${this.healthPoints}! If you fall further you may be banished from this kingdom!`;
-      }
-    }
-  
-    function Villain(villainAttributes) {
-      Hero.call(this, villainAttributes);
-    };
-  
-      // Make Villain inherit Hero prototype methods
-  
-    Villain.prototype = Object.create(Hero.prototype);
+}
+
   
     const hero1 = new Hero({
       createdAt: new Date(),
